@@ -2,8 +2,7 @@ package com.mryzhan.repository;
 
 import com.mryzhan.model.Account;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class AccountRepository {
 
@@ -17,5 +16,12 @@ public class AccountRepository {
 
     public List<Account> findAll() {
         return accountsList;
+    }
+
+    public Account findById(UUID id){
+        Optional<Account> account = accountsList.stream()
+                .filter(a->a.getId() == id)
+                .findFirst();
+        return (account == null ? null : account.get());
     }
 }

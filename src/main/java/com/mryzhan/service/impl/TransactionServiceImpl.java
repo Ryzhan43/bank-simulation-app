@@ -1,5 +1,7 @@
 package com.mryzhan.service.impl;
 
+import com.mryzhan.enums.AccountType;
+import com.mryzhan.exception.AccountOwnershipException;
 import com.mryzhan.exception.BadRequestException;
 import com.mryzhan.model.Account;
 import com.mryzhan.model.Transaction;
@@ -29,8 +31,17 @@ public class TransactionServiceImpl implements TransactionService {
          */
 
         validateAccount(sender,receiver);
+        checkAccountOwnership(sender, receiver);
 
         return null;
+    }
+
+    private void checkAccountOwnership(Account sender, Account receiver) {
+
+        if ((sender.getAccountType().equals(AccountType.SAVING)||receiver.getAccountType().equals(AccountType.SAVING))
+                && !sender.getUserId().equals(receiver.getUserId())) {
+            throw new AccountOwnershipException("Since you are using a saving account, the sender and receiver userId must not be same");
+        }
     }
 
     private void validateAccount(Account sender, Account receiver) {

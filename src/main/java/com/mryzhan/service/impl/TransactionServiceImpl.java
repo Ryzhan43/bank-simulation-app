@@ -9,6 +9,7 @@ import com.mryzhan.service.TransactionService;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 public class TransactionServiceImpl implements TransactionService {
 
@@ -45,6 +46,14 @@ public class TransactionServiceImpl implements TransactionService {
         if (sender.getId().equals(receiver.getId())){
             throw new BadRequestException("Sender account needs to be different than receiver");
         }
+
+        findAccountById(sender.getId());
+        findAccountById(receiver.getId());
+
+    }
+
+    private void findAccountById(UUID id) {
+        accountRepository.findById(id);
     }
 
     @Override

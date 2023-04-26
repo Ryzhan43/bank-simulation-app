@@ -1,5 +1,6 @@
 package com.mryzhan.repository;
 
+import com.mryzhan.exception.RecordNotFoundException;
 import com.mryzhan.model.Account;
 
 import java.util.*;
@@ -19,9 +20,8 @@ public class AccountRepository {
     }
 
     public Account findById(UUID id){
-        Optional<Account> account = accountsList.stream()
-                .filter(a->a.getId() == id)
-                .findFirst();
-        return (account == null ? null : account.get());
+        return accountsList.stream()
+                .filter(a->a.getId().equals(id))
+                .findAny().orElseThrow(() -> new RecordNotFoundException("Account not exist in the database"));
     }
 }

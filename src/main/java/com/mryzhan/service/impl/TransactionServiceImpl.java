@@ -11,12 +11,14 @@ import com.mryzhan.repository.AccountRepository;
 import com.mryzhan.repository.TransactionRepository;
 import com.mryzhan.service.TransactionService;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+@Component
 public class TransactionServiceImpl implements TransactionService {
 
     @Value("${under_construction}")
@@ -32,13 +34,13 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public Transaction makeTransaction(Account sender, Account receiver, BigDecimal amount, Date creationDate, String message) {
 
-        if(underConstruction) {
+        if(!underConstruction) {
 
             validateAccount(sender,receiver);
             checkAccountOwnership(sender, receiver);
             executeBalanceAndUpdateIfRequired(amount,sender,receiver);
         } else {
-            throw new UnderConstructionException("App is under construction, try again")
+            throw new UnderConstructionException("App is under construction, try again");
         }
 
         /*  TASK
@@ -98,6 +100,6 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public List<Transaction> findAllTransaction() {
-        return null;
+        return transactionRepository.findAll();
     }
 }

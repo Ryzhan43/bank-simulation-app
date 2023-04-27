@@ -2,6 +2,7 @@ package com.mryzhan.service;
 
 import com.mryzhan.model.Account;
 import com.mryzhan.model.Transaction;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.Date;

@@ -2,9 +2,11 @@ package com.mryzhan.repository;
 
 import com.mryzhan.exception.RecordNotFoundException;
 import com.mryzhan.model.Account;
+import org.springframework.stereotype.Repository;
 
 import java.util.*;
 
+@Repository
 public class AccountRepository {
 
     public static List<Account> accountsList = new ArrayList<>();

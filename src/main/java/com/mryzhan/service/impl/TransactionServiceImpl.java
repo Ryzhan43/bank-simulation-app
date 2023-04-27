@@ -4,11 +4,13 @@ import com.mryzhan.enums.AccountType;
 import com.mryzhan.exception.AccountOwnershipException;
 import com.mryzhan.exception.BadRequestException;
 import com.mryzhan.exception.BalanceNotSufficientException;
+import com.mryzhan.exception.UnderConstructionException;
 import com.mryzhan.model.Account;
 import com.mryzhan.model.Transaction;
 import com.mryzhan.repository.AccountRepository;
 import com.mryzhan.repository.TransactionRepository;
 import com.mryzhan.service.TransactionService;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -16,6 +18,9 @@ import java.util.List;
 import java.util.UUID;
 
 public class TransactionServiceImpl implements TransactionService {
+
+    @Value("${under_construction}")
+    private boolean underConstruction;
 
     private final AccountRepository accountRepository;
     private final TransactionRepository transactionRepository;
@@ -26,16 +31,15 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public Transaction makeTransaction(Account sender, Account receiver, BigDecimal amount, Date creationDate, String message) {
-        /*
-            - if sender or receiver is null
-            - if sender has enough balance ?
-            - if both account are checking, if not, one of them saving, it needs to be same userId
-            -if both accounts are checking, if mot, one of them saving, it needs to be the same userId
-         */
 
-        validateAccount(sender,receiver);
-        checkAccountOwnership(sender, receiver);
-        executeBalanceAndUpdateIfRequired(amount,sender,receiver);
+        if(underConstruction) {
+
+            validateAccount(sender,receiver);
+            checkAccountOwnership(sender, receiver);
+            executeBalanceAndUpdateIfRequired(amount,sender,receiver);
+        } else {
+            throw new UnderConstructionException("App is under construction, try again")
+        }
 
         /*  TASK
             after all validations are completed, and money is transferred, Transaction class should be created

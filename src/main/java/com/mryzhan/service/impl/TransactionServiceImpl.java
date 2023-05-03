@@ -63,7 +63,7 @@ public class TransactionServiceImpl implements TransactionService {
         }
     }
 
-    private boolean checkSenderBalance(Account sender, BigDecimal amount) {
+    private  boolean checkSenderBalance(Account sender, BigDecimal amount) {
         return sender.getBalance().subtract(amount).compareTo(BigDecimal.ZERO)>=0;
     }
 
@@ -80,7 +80,6 @@ public class TransactionServiceImpl implements TransactionService {
               -if any of the accounts is null
               -if account ids are the same
          */
-
         if(sender==null||receiver==null){
             throw new BadRequestException("Sender or Receiver cannot be null");
         }

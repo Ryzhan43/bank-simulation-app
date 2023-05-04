@@ -15,16 +15,23 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.thymeleaf.model.IModel;
 
 import java.util.Date;
+import java.util.UUID;
 
 @Controller
 
 public class AccountController {
     AccountService accountService;
     TransactionService transactionService;
+
+    public AccountController(AccountService accountService, TransactionService transactionService) {
+        this.accountService = accountService;
+        this.transactionService = transactionService;
+    }
 
     @GetMapping("/index1")
     public String showTransactionPage(Model model){
@@ -38,6 +45,12 @@ public class AccountController {
 
         model.addAttribute("accountList", accountService.listAllAccount());
         return "account/index";
+    }
+
+    @GetMapping("/delete/{accountId}")
+    public String deleteAccount(@PathVariable("accountId") UUID accountId){
+        accountService.deleteAccount(accountId);
+        return "redirect:/index";
     }
 
     @GetMapping("/create-form")

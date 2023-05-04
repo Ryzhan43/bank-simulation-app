@@ -1,7 +1,6 @@
 package com.mryzhan.repository;
 
 import com.mryzhan.model.Transaction;
-import com.mryzhan.service.TransactionService;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;

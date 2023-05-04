@@ -28,8 +28,6 @@ public class AccountServiceImpl implements AccountService {
                 userId(userId).balance(balance).accountType(accountType).accountStatus(AccountStatus.ACTIVE).
                 creationDate(creationaDate).build();
 
-
-
         return accountRepository.save(account);
 
     }
@@ -37,5 +35,10 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public List<Account> listAllAccount() {
         return accountRepository.findAll();
+    }
+
+    @Override
+    public void deleteAccount(UUID accountId) {
+        accountRepository.findById(accountId).setAccountStatus(AccountStatus.DELETED);
     }
 }

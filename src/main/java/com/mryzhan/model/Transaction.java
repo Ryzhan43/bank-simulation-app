@@ -14,7 +14,7 @@ public class Transaction {
     private UUID sender;
     private UUID receiver;
     private BigDecimal amount;
-    private String massage;
+    private String message;
     private Date creationDate;
 
 }

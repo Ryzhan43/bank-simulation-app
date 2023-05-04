@@ -1,5 +1,6 @@
 package com.mryzhan.service.impl;
 
+import com.mryzhan.enums.AccountStatus;
 import com.mryzhan.enums.AccountType;
 import com.mryzhan.model.Account;
 import com.mryzhan.repository.AccountRepository;
@@ -24,7 +25,7 @@ public class AccountServiceImpl implements AccountService {
     public Account createNewAccount(BigDecimal balance, Date creationaDate, AccountType accountType, Long userId) {
 
         Account account = Account.builder().id(UUID.randomUUID()).
-                userId(userId).balance(balance).accountType(accountType).
+                userId(userId).balance(balance).accountType(accountType).accountStatus(AccountStatus.ACTIVE).
                 creationDate(creationaDate).build();
 
 

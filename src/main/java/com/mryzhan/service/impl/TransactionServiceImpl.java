@@ -48,7 +48,7 @@ public class TransactionServiceImpl implements TransactionService {
         */
 
         Transaction transaction = Transaction.builder().amount(amount).sender(sender.getId())
-                .receiver(receiver.getId()).creationDate(creationDate).massage(message).build();
+                .receiver(receiver.getId()).creationDate(creationDate).message(message).build();
 
         return transactionRepository.save(transaction);
     }

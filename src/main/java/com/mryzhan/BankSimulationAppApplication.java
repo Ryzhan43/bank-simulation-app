@@ -1,5 +1,6 @@
 package com.mryzhan;
 
+import com.mryzhan.enums.AccountStatus;
 import com.mryzhan.enums.AccountType;
 import com.mryzhan.model.Account;
 import com.mryzhan.service.AccountService;
@@ -18,20 +19,20 @@ public class BankSimulationAppApplication {
 
         ApplicationContext container = SpringApplication.run(BankSimulationAppApplication.class, args);
 
-        AccountService accountService = container.getBean(AccountService.class);
-        TransactionService transactionService = container.getBean(TransactionService.class);
-
-        //
-        Account sender = accountService.createNewAccount(BigDecimal.valueOf(78), new Date(), AccountType.CHECKING, 1L);
-        Account receiver = accountService.createNewAccount(BigDecimal.valueOf(50), new Date(), AccountType.SAVING, 1L);
-
-
-        accountService.listAllAccount().forEach(System.out::println);
-
-        transactionService.makeTransaction(sender, receiver, new BigDecimal(40), new Date(), "Transaction 1");
-
-        System.out.println(transactionService.findAllTransaction().get(0));
-        accountService.listAllAccount().forEach(System.out::println);
+//        AccountService accountService = container.getBean(AccountService.class);
+//        TransactionService transactionService = container.getBean(TransactionService.class);
+//
+//        //
+//        Account sender = accountService.createNewAccount(BigDecimal.valueOf(78), new Date(), AccountType.CHECKING, 1L);
+//        Account receiver = accountService.createNewAccount(BigDecimal.valueOf(50), new Date(), AccountType.SAVING, 1L);
+//
+//
+//        accountService.listAllAccount().forEach(System.out::println);
+//
+//        transactionService.makeTransaction(sender, receiver, new BigDecimal(40), new Date(), "Transaction 1");
+//
+//        System.out.println(transactionService.findAllTransaction().get(0));
+//        accountService.listAllAccount().forEach(System.out::println);
     }
 
 }

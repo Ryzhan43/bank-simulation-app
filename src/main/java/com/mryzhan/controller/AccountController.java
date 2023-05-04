@@ -53,6 +53,13 @@ public class AccountController {
         return "redirect:/index";
     }
 
+
+    @GetMapping("/activate/{accountId}")
+    public String activateAccount(@PathVariable("accountId") UUID accountId){
+        accountService.activateAccount(accountId);
+        return "redirect:/index";
+    }
+
     @GetMapping("/create-form")
     public String getCreateForm(Model model){
 

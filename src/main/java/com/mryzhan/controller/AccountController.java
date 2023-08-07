@@ -23,7 +23,6 @@ import java.util.Date;
 import java.util.UUID;
 
 @Controller
-
 public class AccountController {
     AccountService accountService;
     TransactionService transactionService;

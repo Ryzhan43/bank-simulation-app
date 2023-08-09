@@ -19,4 +19,6 @@ public interface AccountService {
     void deleteAccount(UUID accountId);
 
     void activateAccount(UUID accountId);
+
+    Account findById(UUID sender);
 }

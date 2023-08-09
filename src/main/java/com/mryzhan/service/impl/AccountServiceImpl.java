@@ -46,4 +46,11 @@ public class AccountServiceImpl implements AccountService {
     public void activateAccount(UUID accountId) {
         accountRepository.findById(accountId).setAccountStatus(AccountStatus.ACTIVE);
     }
+
+    @Override
+    public Account findById(UUID id) {
+        return accountRepository.findById(id);
+    }
+
+
 }

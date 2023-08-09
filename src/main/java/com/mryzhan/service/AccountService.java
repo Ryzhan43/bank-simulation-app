@@ -21,4 +21,5 @@ public interface AccountService {
     void activateAccount(UUID accountId);
 
     Account findById(UUID sender);
+
 }

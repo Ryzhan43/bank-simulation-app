@@ -29,17 +29,27 @@ public class TransactionController {
     public String getMakeTransfer(Model model){
         model.addAttribute("transaction", Transaction.builder().build());
         model.addAttribute("accounts", accountService.listAllAccount());
+        model.addAttribute("transactions", transactionService.findAllTransaction());
+
 
         return "transaction/make-transfer";
     }
 
     @PostMapping("/make-transfer")
-    public String postMakeTransfer(@ModelAttribute Transaction transaction){
-        System.out.println("transaction: "+ transaction.toString()  );
-        transactionService.makeTransaction(accountService.findById(transaction.getSender()),accountService.findById(transaction.getReceiver()),
-                transaction.getAmount(),LocalDate.now(),transaction.getMessage());
+    public String postMakeTransfer(@ModelAttribute("transaction") Transaction transaction){
+        System.out.println("transaction: "+ transaction.toString());
+        transactionService.makeTransaction(
+                accountService.findById(transaction.getSender()),
+                accountService.findById(transaction.getReceiver()),
+                transaction.getAmount(),
+                LocalDate.now(),
+                transaction.getMessage()
+        );
+        transactionService.findAllTransaction()
+                .stream()
+                .forEach(System.out::println);
 
-        return "transaction/make-transfer";
+        return "redirect:/make-transfer";
     }
 
 

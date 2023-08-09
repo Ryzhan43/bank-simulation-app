@@ -20,7 +20,8 @@
                             <label for="sender" class="col-form-label">Sender</label>
                             <select class="form-control" id="sender" th:field="*{sender}">
                                 <option value="0" >Select Account</option>
-                                <option th:each="account : ${accounts}" th:value="${account.getId()}" th:text="${account.getId()}"></option>
+                                <option th:each="account : ${accounts}" th:value="${account.id}"
+                                        th:text="${account.getBalance()} + '-'+${account.getUserId()} + '-'+ ${account.getAccountType().name()}"></option>
                             </select>
                         </div>
 
@@ -28,7 +29,8 @@
                             <label for="receiver" class="col-form-label">Receiver</label>
                             <select class="form-control" id="receiver" th:field="*{receiver}">
                                 <option value="0" >Select Account</option>
-                                <option th:each="account : ${accounts}" th:value="${account.getId()}" th:text="${account.getId()}"></option>
+                                <option th:each="account : ${accounts}" th:value="${account.id}"
+                                        th:text="${account.getBalance()} + '-'+${account.getUserId()} + '-'+ ${account.getAccountType().name()}"></option>
                             </select>
                         </div>
 
@@ -61,16 +63,16 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr >
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                    <tr th:each="lTransaction : ${transactions}">
+                        <td th:text="${lTransaction.sender}"></td>
+                        <td th:text="${lTransaction.receiver}"></td>
+                        <td th:text="${lTransaction.amount}"></td>
+                        <td th:text="${lTransaction.creationDate}"></td>
+                        <td th:text="${lTransaction.message}"></td>
                     </tr>
                     </tbody>
                 </table>
-                <p class="my-5"><a href="#" class="btn btn-primary">Home Page</a></p>
+                <p class="my-5"><a href="/index" class="btn btn-primary">Home Page</a></p>
             </div>
         </div>
     </div>
